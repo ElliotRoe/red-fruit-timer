@@ -17,7 +17,7 @@ const ControlCenter = () => {
   const startTimer = useAppStore((state) => state.startTimer);
   const pauseTimer = useAppStore((state) => state.pauseTimer);
   const resetTimer = useAppStore((state) => state.resetTimer);
-  const setCurrentIntervalType = useAppStore((state) => state.setCurrentIntervalType);
+  const setCurrentIntervalType = useAppStore((state) => state.setCurrentIntervalType); 
 
   const onWorkClick = () => {
     setCurrentIntervalType(TimerInterval.Working);

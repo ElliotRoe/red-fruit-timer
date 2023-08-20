@@ -23,6 +23,11 @@ export interface TimerState {
     resetTimer: () => void,
     decrementTimer: () => void,
     setCurrentIntervalType: (intervalType: TimerInterval) => void,
+    onTimerEnd: () => void,
+    checkTimerEnd: () => void,
+
+    playSound: () => void,
+    setPlaySound: (playSound: () => void) => void,
 }
 
 export const createTimerSlice: StateCreator<
@@ -36,6 +41,10 @@ export const createTimerSlice: StateCreator<
     paused: true,
     timerString: dayjs.duration(0, "minutes").format(DURATION_FORMAT),
     currentIntervalType: TimerInterval.Working,
+
+    playSound: () => {
+        console.warn("Audio Playback Unavailable");
+    },
 
     startTimer: () => {
         set((state) => ({ 
@@ -51,7 +60,6 @@ export const createTimerSlice: StateCreator<
         })
     },
     resetTimer: () => {
-        const { paused } = get();
         get().pauseTimer();
         set(state => {
             const newDuration = dayjs.duration(state.timerIntervals[state.currentIntervalType], "minutes");
@@ -60,9 +68,6 @@ export const createTimerSlice: StateCreator<
                 timerString: newDuration.format(DURATION_FORMAT),
             }
         })
-        if (!paused) {
-            get().startTimer();
-        }
     },
     decrementTimer: () => {
         set(state => {
@@ -72,10 +77,25 @@ export const createTimerSlice: StateCreator<
                 timerString: newDuration.format(DURATION_FORMAT),
             }
         })
+        get().checkTimerEnd();
     },
     setCurrentIntervalType: (intervalType: TimerInterval) => {
         set({currentIntervalType: intervalType});
         get().resetTimer();
+    },
+    checkTimerEnd: () => {
+        get().durationRemaining.asSeconds() <= 0 && get().onTimerEnd();
+    },
+    onTimerEnd: () => {
+        set(state => {
+            const newIntervalType = state.currentIntervalType === TimerInterval.Working ? TimerInterval.ShortBreak : TimerInterval.Working;
+            return { currentIntervalType: newIntervalType }
+        })
+        get().resetTimer();
+        get().playSound();
+    },
+    setPlaySound: (playSound: () => void) => {
+        set({ playSound: playSound })
     }
 
 })
