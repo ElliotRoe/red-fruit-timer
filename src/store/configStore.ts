@@ -18,6 +18,7 @@ export interface ConfigState {
 
     // Actions
     setSound: (sound: string) => void,
+    playSound: () => void,
     setVolume: (volume: number) => void,
     setDarkMode: (darkMode: boolean) => void,
     setAutoContinue: (autoContinue: boolean) => void,
@@ -46,7 +47,7 @@ export const createConfigSlice: StateCreator<
 
     timerIntervals: {
         [TimerInterval.Working]: 25,
-        [TimerInterval.ShortBreak]: 5,
+        [TimerInterval.ShortBreak]: 0.1,
         [TimerInterval.LongBreak]: 25,
     },
 
@@ -57,6 +58,14 @@ export const createConfigSlice: StateCreator<
     pomodoroCountEnabled: false,
 
     setSound: (sound) => set({ sound }),
+    playSound: () => {
+        const ding1 = new Audio('ding.mp3');
+        const ding2 = new Audio('ding.mp3');
+        const highDing = new Audio('highDing.mp3');
+        ding1.play();
+        setTimeout(() => ding2.play(), 1000);
+        setTimeout(() => highDing.play(), 2000);
+    },
     setVolume: (volume) => set({ volume }),
     setDarkMode: (darkMode) => set({ darkMode }),
     setAutoContinue: (autoContinue) => set({ autoContinue }),

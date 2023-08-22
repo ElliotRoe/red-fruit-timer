@@ -1,8 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import useSound from 'use-sound';
+import { useState } from 'react';
 
 import ControlCenter from '../components/ControlCenter';
 import useAppStore from '../store';
@@ -18,13 +17,6 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const timerString = useAppStore((state) => state.timerString);
   const paused = useAppStore((state) => state.paused);
-  const setPlaySound = useAppStore((state) => state.setPlaySound);
-
-  const [ play ] = useSound('ding.mp3');
-  
-  useEffect(() => {
-    setPlaySound(play);
-  }, [])
 
   return (
     <>

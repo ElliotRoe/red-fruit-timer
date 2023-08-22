@@ -25,9 +25,6 @@ export interface TimerState {
     setCurrentIntervalType: (intervalType: TimerInterval) => void,
     onTimerEnd: () => void,
     checkTimerEnd: () => void,
-
-    playSound: () => void,
-    setPlaySound: (playSound: () => void) => void,
 }
 
 export const createTimerSlice: StateCreator<
@@ -41,10 +38,6 @@ export const createTimerSlice: StateCreator<
     paused: true,
     timerString: dayjs.duration(0, "minutes").format(DURATION_FORMAT),
     currentIntervalType: TimerInterval.Working,
-
-    playSound: () => {
-        console.warn("Audio Playback Unavailable");
-    },
 
     startTimer: () => {
         set((state) => ({ 
@@ -94,8 +87,5 @@ export const createTimerSlice: StateCreator<
         get().resetTimer();
         get().playSound();
     },
-    setPlaySound: (playSound: () => void) => {
-        set({ playSound: playSound })
-    }
 
 })
