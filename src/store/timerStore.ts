@@ -40,10 +40,12 @@ export const createTimerSlice: StateCreator<
     currentIntervalType: TimerInterval.Working,
 
     startTimer: () => {
-        set((state) => ({ 
+        set((state) => {
+            const timerInterval:unknown = setInterval(state.decrementTimer, SECOND)
+            return { 
             paused: false, 
-            timerInterval: setInterval(state.decrementTimer, SECOND) as any as number,
-        }));
+            timerInterval: timerInterval as number,
+        }});
     },
     pauseTimer: () => {
         clearInterval(get().timerInterval);

@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": true,
 
     "target": "es5",
-    "outDir": "out",
+    "outDir": "docs",
     "declaration": true,
     "sourceMap": true,
 
@@ -35,6 +35,6 @@
     "isolatedModules": true,
     "incremental": true
   },
-  "exclude": ["./out/**/*", "./node_modules/**/*"],
+  "exclude": ["docs/**/*", "./node_modules/**/*"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
