@@ -47,7 +47,7 @@ export const createConfigSlice: StateCreator<
 
     timerIntervals: {
         [TimerInterval.Working]: 25,
-        [TimerInterval.ShortBreak]: 0.1,
+        [TimerInterval.ShortBreak]: 5,
         [TimerInterval.LongBreak]: 25,
     },
 
