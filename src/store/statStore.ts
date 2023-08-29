@@ -14,12 +14,14 @@ type Category = {
 export interface StatState {
     rootCategory: Category;
     selectedCategory: Category | null;
+    totalSeconds: number;
 
     getCategoryTotal: (uid: string) => number | null;
     addCategory: (uid: string, name: string) => void;
     removeCategory: (uid: string) => void;
     renameCategory: (uid: string, newName: string) => void;
     incrementCurrentCategory: () => void;
+    setTotalSeconds: (totalSeconds: number) => void;
 }
 
 const findCategory = (category: Category, uid: string): Category | null => {
@@ -56,6 +58,8 @@ export const createStatSlice: StateCreator<
     },
 
     selectedCategory: null,
+
+    totalSeconds: 0,
 
     getCategoryTotal: (uid: string) => {
         const category = findCategory(get().rootCategory, uid);
@@ -115,5 +119,9 @@ export const createStatSlice: StateCreator<
                 total: state.selectedCategory.total + 1,
             }};
         });
-    }
+    },
+
+    setTotalSeconds: (totalSeconds: number) => {
+        set({ totalSeconds });
+    },
 })

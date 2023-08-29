@@ -19,6 +19,7 @@ const ControlCenter = () => {
   const pauseTimer = useAppStore((state) => state.pauseTimer);
   const resetTimer = useAppStore((state) => state.resetTimer);
   const setCurrentIntervalType = useAppStore((state) => state.setCurrentIntervalType); 
+  const totalSeconds = useAppStore((state) => state.totalSeconds);
 
   const onWorkClick = () => {
     setCurrentIntervalType(TimerInterval.Working);
@@ -52,6 +53,9 @@ const ControlCenter = () => {
         <PauseButton onClick={pauseTimer}/>
         <ResetButton onClick={resetTimer}/>
       </div>
+      <h1 className='text-m font-bold tracking-tight text-gray-900 sm:text-m'>
+        {`Hours Worked: ${totalSeconds/3600}`}
+      </h1>
     </div>
   );
 }
