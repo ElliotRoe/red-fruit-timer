@@ -1,8 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import { useLocalStorage } from 'usehooks-ts';
+import { useState } from 'react';
 
 import ControlCenter from '../components/ControlCenter';
 import useAppStore from '../store';
@@ -18,17 +17,6 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const timerString = useAppStore((state) => state.timerString);
   const paused = useAppStore((state) => state.paused);
-  const setTotalSeconds = useAppStore((state) => state.setTotalSeconds);
-  const totalSeconds = useAppStore((state) => state.totalSeconds);
-  const [localTotalSeconds, setLocalTotalSeconds] = useLocalStorage("totalSeconds", 0);
-
-  useEffect(() => {
-    setTotalSeconds(totalSeconds);
-  }, []);
-
-  useEffect(() => {
-    setLocalTotalSeconds(totalSeconds);
-  }, [totalSeconds, setLocalTotalSeconds]);
 
   return (
     <>
